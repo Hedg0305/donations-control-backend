@@ -16,6 +16,7 @@ export class CreateWorkerUseCase {
     if (!name || !email || !phone || !address || !role) {
       throw new AppError("Please, provide all the required data!");
     }
+    console.log("ROLE: ", role);
 
     await this.workerRepository.create({
       address,

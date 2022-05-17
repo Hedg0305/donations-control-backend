@@ -1,8 +1,14 @@
 import { GetWorkerDonations } from "@use-cases/worker/get-worker-donations-use-case";
-import { format, formatISO, subMonths } from "date-fns";
+import { formatDatePeriod } from "@utils/index";
+import { format, formatISO, startOfMonth, subMonths } from "date-fns";
 import express, { Request, Response } from "express";
 import { PrismaWorkerRepository } from "../repositories/prisma/worker-repository";
 import { CreateWorkerUseCase } from "../use-cases/worker/create-worker-use-case";
+
+interface GetDonationsParams {
+  start: string;
+  end: string;
+}
 
 const routes = express.Router();
 
@@ -28,23 +34,13 @@ routes.get("/:id/donations", async (req: Request, res: Response) => {
   );
 
   const { id: workerId } = req.params;
-  let { start, end } = req.query;
+  const { start: startDate, end: endDate } =
+    req.query as unknown as GetDonationsParams;
 
-  //Default should be the last month
-  if (!start && !end) {
-    start = formatISO(subMonths(new Date(), 1));
-    end = formatISO(new Date());
-  }
-
-  //If start is not defined, set it to the last month from the ending date
-  if (!start && end) {
-    start = formatISO(subMonths(new Date(String(end)), 1));
-  }
-
-  //If end is not defined, set it to the current date
-  if (!end) {
-    end = formatISO(new Date());
-  }
+  const { endDate: end, startDate: start } = formatDatePeriod({
+    startDate,
+    endDate,
+  });
 
   const donations = await getDonatorDonationsUseCase.execute({
     workerId,

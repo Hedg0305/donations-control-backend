@@ -24,6 +24,7 @@ export class PrismaWorkerRepository implements WorkerRepository {
           lte: end,
         },
       },
+      
     });
   }
 }

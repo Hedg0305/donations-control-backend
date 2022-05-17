@@ -30,14 +30,18 @@ model Donation {
   donator   Donator @relation(fields: [donatorId], references: [id])
   donatorId String
 
-  worker   Worker @relation(fields: [workerId], references: [id])
-  workerId String
+  caller   Worker? @relation("caller", fields: [callerId], references: [id])
+  callerId String? @default(uuid())
+
+  courier   Worker? @relation("courier", fields: [courierId], references: [id])
+  courierId String? @default(uuid())
 
   amount Float
   date   DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
 }
 
 model Worker {
@@ -47,10 +51,16 @@ model Worker {
   email   String
   phone   String
   address String
-  role    String
+  role    Role   @default(CALLER)
 
-  donations Donation[]
+  calledDonations  Donation[] @relation("caller")
+  courierDonations Donation[] @relation("courier")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+}
+
+enum Role {
+  CALLER
+  COURIER
 }

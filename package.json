@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev -r tsconfig-paths/register --exit-child  --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --exit-child  --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "seed": "ts-node prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -29,3 +30,4 @@
     "typescript": "^4.6.4"
   }
 }
+

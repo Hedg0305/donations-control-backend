@@ -3,8 +3,8 @@ import { AppError } from "@shared/errors/AppError";
 
 interface WorkerData {
   workerId: string;
-  end: any;
-  start: any;
+  end: string;
+  start: string;
 }
 
 export class GetWorkerDonations {

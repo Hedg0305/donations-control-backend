@@ -1,4 +1,5 @@
 import { prisma } from "prisma";
+import { DonationCreateData } from "../donations-repository";
 import {
   DonatorsRepository,
   DonatorCreateData,
@@ -14,7 +15,7 @@ export class PrismaDonatorsRepository implements DonatorsRepository {
     });
   }
 
-  async getDonations(donatorId: string) {
+  async getDonations(donatorId: string): Promise<DonationCreateData[]> {
     return await prisma.donation.findMany({
       where: {
         donatorId,
