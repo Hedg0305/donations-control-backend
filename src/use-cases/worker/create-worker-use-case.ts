@@ -1,5 +1,5 @@
-import { WorkerRepository } from "../../repositories/workers-repository";
-import { AppError } from "../../shared/errors/AppError";
+import { WorkerRepository } from "@repositories/workers-repository";
+import { AppError } from "@shared/errors/AppError";
 
 interface WorkerData {
   name: string;

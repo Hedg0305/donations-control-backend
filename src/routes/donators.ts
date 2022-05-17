@@ -24,20 +24,39 @@ routes.post("/", (req: Request, res: Response) => {
   res.send("User created");
 });
 
-routes.get("/:id/donations", (req: Request, res: Response) => {
+routes.get("/:id/donations", async (req: Request, res: Response) => {
   const prismaDonatorsRepository = new PrismaDonatorsRepository();
   const createDonatorUseCase = new GetDonatorDonationsUseCase(
     prismaDonatorsRepository
   );
 
   const { id: donatorId } = req.params;
-  console.log(donatorId);
 
-  const donations = createDonatorUseCase.execute({ donatorId });
+  const donations = await createDonatorUseCase.execute({ donatorId });
 
   res.json({
     data: {
       donations,
+    },
+  });
+});
+
+routes.get("/:id/donations/amount", async (req: Request, res: Response) => {
+  const prismaDonatorsRepository = new PrismaDonatorsRepository();
+  const createDonatorUseCase = new GetDonatorDonationsUseCase(
+    prismaDonatorsRepository
+  );
+
+  const { id: donatorId } = req.params;
+
+  const donations = await createDonatorUseCase.execute({ donatorId });
+  const amount = donations.reduce((acc, donation) => {
+    return acc + donation.amount;
+  }, 0);
+
+  res.json({
+    data: {
+      amount,
     },
   });
 });
