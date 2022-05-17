@@ -10,7 +10,17 @@ routes.post("/", (req: Request, res: Response) => {
     prismaDonationsRepository
   );
 
-  console.log(req.body);
+    const { donatorId, workerId, amount, date } = req.body;
+
+   createDonationUseCase.execute({
+    donatorId,
+    workerId,
+    amount,
+    date,
+  });
+
+  
+
 
   return res.json({ message: "Created" });
 });

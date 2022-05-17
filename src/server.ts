@@ -1,11 +1,12 @@
 import express, { Express, Request, Response } from "express";
-import { DonationRoutes, WorkerRoutes } from "./routes";
+import { DonationRoutes, DonatorsRoutes, WorkerRoutes } from "./routes";
 
 const app: Express = express();
 
 app.use(express.json());
 app.use("/donation", DonationRoutes);
 app.use("/worker", WorkerRoutes);
+app.use("/donators", DonatorsRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScrisadaspt dasdasdsadadasds");
