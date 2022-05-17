@@ -1,3 +1,5 @@
+import { DonationCreateData } from "./donations-repository";
+
 export interface DonatorCreateData {
   name: string;
   email: string;
@@ -7,5 +9,6 @@ export interface DonatorCreateData {
 
 export interface DonatorsRepository {
   create: (data: DonatorCreateData) => Promise<void>;
+  getDonations: (workerId: string) => Promise<DonationCreateData[]>;
 }
 
