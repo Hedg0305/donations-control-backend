@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import CourierController from "@controllers/courier/courier.controller";
 
 const routes = express.Router();
@@ -8,7 +8,6 @@ routes.get("/", (req, res) => {
 });
 
 routes.post("/", CourierController.createCourier);
-
 routes.get("/:courierId/donations", CourierController.getCourierDonations);
 
 export { routes };

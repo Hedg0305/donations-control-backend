@@ -1,6 +1,4 @@
-import express, { Request, Response } from "express";
-import { PrismaDonationsRepository } from "@repositories/prisma/donations-repository";
-import { CreateDonationUseCase } from "@use-cases/donations/create-donation-use-case";
+import express from "express";
 import DonationsController from "@controllers/donations/donations.controller";
 
 const routes = express.Router();
