@@ -3,7 +3,8 @@ import { AppError } from "../../shared/errors/AppError";
 
 export interface DonationData {
   donatorId: string;
-  workerId: string;
+  courierId: string;
+  telemarketingId: string;
   amount: number;
   date: Date;
 }
@@ -11,14 +12,21 @@ export interface DonationData {
 export class CreateDonationUseCase {
   constructor(private donationsRepository: DonationsRepository) {}
 
-  async execute({ donatorId, workerId, amount, date }: DonationData) {
-    if (!donatorId || !workerId || !amount || !date) {
+  async execute({
+    donatorId,
+    courierId,
+    amount,
+    date,
+    telemarketingId,
+  }: DonationData) {
+    if (!donatorId || !courierId || !amount || !date || !telemarketingId) {
       throw new AppError("Please, provide all the required data!");
     }
 
     await this.donationsRepository.create({
       donatorId,
-      workerId,
+      courierId,
+      telemarketingId,
       amount,
       date,
     });

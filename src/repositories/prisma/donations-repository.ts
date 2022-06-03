@@ -13,5 +13,9 @@ export class PrismaDonationsRepository implements DonationsRepository {
       },
     });
   }
+
+  async getAllDonations() {
+    return await prisma.donation.findMany();
+  }
 }
 
