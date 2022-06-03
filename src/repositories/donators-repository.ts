@@ -1,4 +1,4 @@
-import { DonationCreateData } from "./donations-repository";
+import { DonationCreateData, DonationData } from "./donations-repository";
 
 export interface DonatorCreateData {
   name: string;
@@ -9,6 +9,6 @@ export interface DonatorCreateData {
 
 export interface DonatorsRepository {
   create: (data: DonatorCreateData) => Promise<void>;
-  getDonations: (workerId: string) => Promise<DonationCreateData[]>;
+  getDonations: (workerId: string) => Promise<DonationData[]>;
 }
 
