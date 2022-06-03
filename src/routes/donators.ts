@@ -24,13 +24,13 @@ routes.post("/", (req: Request, res: Response) => {
   res.send("User created");
 });
 
-routes.get("/:id/donations", async (req: Request, res: Response) => {
+routes.get("/:donatorId/donations", async (req: Request, res: Response) => {
   const prismaDonatorsRepository = new PrismaDonatorsRepository();
   const createDonatorUseCase = new GetDonatorDonationsUseCase(
     prismaDonatorsRepository
   );
 
-  const { id: donatorId } = req.params;
+  const { donatorId } = req.params;
 
   const donations = await createDonatorUseCase.execute({ donatorId });
 

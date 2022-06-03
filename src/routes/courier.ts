@@ -3,63 +3,17 @@ import { CreateCourierUseCase } from "@use-cases/courier/create-courier-use-case
 import { GetCourierDonations } from "@use-cases/courier/get-courier-donations-use-case";
 import { formatDatePeriod } from "@utils/index";
 import express, { Request, Response } from "express";
-
-interface GetDonationsParams {
-  start: string;
-  end: string;
-}
+import CourierController from "@controllers/courier/courier.controller";
 
 const routes = express.Router();
 
 routes.get("/", (req, res) => {
-  res.send("Hello from donations");
+  res.send("Hello from courier");
 });
 
-routes.post("/", (req: Request, res: Response) => {
-  const prismaCourierRepository = new PrismaCourierRepository();
-  const cretateCourierUseCase = new CreateCourierUseCase(
-    prismaCourierRepository
-  );
+routes.post("/", CourierController.createCourier);
 
-  const { address, email, name, phone } = req.body;
-
-  cretateCourierUseCase.execute({ address, email, name, phone });
-  cretateCourierUseCase;
-  res.send("Hello from worker");
-});
-//query paraters are start and end timestamp
-routes.get("/:courierId/donations", async (req: Request, res: Response) => {
-  const prismaCourierRepository = new PrismaCourierRepository();
-  const getDonatorDonationsUseCase = new GetCourierDonations(
-    prismaCourierRepository
-  );
-
-  const { courierId } = req.params;
-  const { start: startDate, end: endDate } =
-    req.query as unknown as GetDonationsParams;
-
-  const { endDate: end, startDate: start } = formatDatePeriod({
-    startDate,
-    endDate,
-  });
-
-  const donations = await getDonatorDonationsUseCase.execute({
-    courierId,
-    end,
-    start,
-  });
-
-  const total = donations.reduce((acc, curr) => {
-    return acc + curr.amount;
-  }, 0);
-
-  res.json({
-    data: {
-      total,
-      donations,
-    },
-  });
-});
+routes.get("/:courierId/donations", CourierController.getCourierDonations);
 
 export { routes };
 

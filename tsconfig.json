@@ -11,7 +11,8 @@
       "@repositories/*": ["repositories/*"],
       "@shared/*": ["shared/*"],
       "@use-cases/*": ["use-cases/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@controllers/*": ["controllers/*"]
     },
     "esModuleInterop": true
   }
